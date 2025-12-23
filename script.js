@@ -109,17 +109,40 @@ document.addEventListener('DOMContentLoaded', function() {
   }, observerOptions);
 
   const timelineItems = document.querySelectorAll('.timeline-item');
-  const projectCards = document.querySelectorAll('.project-card');
+  const projectCategories = document.querySelectorAll('.project-category');
   const skillCategories = document.querySelectorAll('.skill-category');
   const valueCards = document.querySelectorAll('.value-card');
   const highlightItems = document.querySelectorAll('.highlight-item');
 
-  [timelineItems, projectCards, skillCategories, valueCards, highlightItems].forEach(items => {
+  [timelineItems, projectCategories, skillCategories, valueCards, highlightItems].forEach(items => {
     items.forEach(item => {
       item.style.opacity = '0';
       item.style.transform = 'translateY(30px)';
       item.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
       fadeInObserver.observe(item);
+    });
+  });
+
+  projectCategories.forEach(category => {
+    let isExpanded = false;
+
+    category.addEventListener('click', function(e) {
+      if (window.innerWidth <= 768) {
+        isExpanded = !isExpanded;
+        const solution = this.querySelector('.category-solution');
+
+        if (isExpanded) {
+          solution.style.maxHeight = solution.scrollHeight + 'px';
+          solution.style.opacity = '1';
+          solution.style.paddingTop = '0';
+          solution.style.paddingBottom = '35px';
+        } else {
+          solution.style.maxHeight = '0';
+          solution.style.opacity = '0';
+          solution.style.paddingTop = '0';
+          solution.style.paddingBottom = '0';
+        }
+      }
     });
   });
 
