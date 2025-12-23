@@ -109,12 +109,12 @@ document.addEventListener('DOMContentLoaded', function() {
   }, observerOptions);
 
   const timelineItems = document.querySelectorAll('.timeline-item');
-  const projectCategories = document.querySelectorAll('.project-category');
+  const problemCards = document.querySelectorAll('.problem-card');
   const skillCategories = document.querySelectorAll('.skill-category');
   const valueCards = document.querySelectorAll('.value-card');
   const highlightItems = document.querySelectorAll('.highlight-item');
 
-  [timelineItems, projectCategories, skillCategories, valueCards, highlightItems].forEach(items => {
+  [timelineItems, problemCards, skillCategories, valueCards, highlightItems].forEach(items => {
     items.forEach(item => {
       item.style.opacity = '0';
       item.style.transform = 'translateY(30px)';
@@ -123,27 +123,41 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
-  projectCategories.forEach(category => {
+  problemCards.forEach(card => {
     let isExpanded = false;
 
-    category.addEventListener('click', function(e) {
+    card.addEventListener('click', function(e) {
       if (window.innerWidth <= 768) {
         isExpanded = !isExpanded;
-        const solution = this.querySelector('.category-solution');
+        const expanded = this.querySelector('.solution-expanded');
 
         if (isExpanded) {
-          solution.style.maxHeight = solution.scrollHeight + 'px';
-          solution.style.opacity = '1';
-          solution.style.paddingTop = '0';
-          solution.style.paddingBottom = '35px';
+          this.classList.add('mobile-expanded');
+          expanded.style.maxHeight = expanded.scrollHeight + 'px';
+          expanded.style.opacity = '1';
         } else {
-          solution.style.maxHeight = '0';
-          solution.style.opacity = '0';
-          solution.style.paddingTop = '0';
-          solution.style.paddingBottom = '0';
+          this.classList.remove('mobile-expanded');
+          expanded.style.maxHeight = '0';
+          expanded.style.opacity = '0';
         }
       }
     });
+
+    if (window.innerWidth > 768) {
+      card.addEventListener('mouseenter', function() {
+        const expanded = this.querySelector('.solution-expanded');
+        if (expanded) {
+          expanded.style.maxHeight = expanded.scrollHeight + 'px';
+        }
+      });
+
+      card.addEventListener('mouseleave', function() {
+        const expanded = this.querySelector('.solution-expanded');
+        if (expanded) {
+          expanded.style.maxHeight = '0';
+        }
+      });
+    }
   });
 
   const skillBarsObserver = new IntersectionObserver(function(entries) {
