@@ -133,12 +133,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (isExpanded) {
           this.classList.add('mobile-expanded');
-          expanded.style.maxHeight = expanded.scrollHeight + 'px';
-          expanded.style.opacity = '1';
+          expanded.style.setProperty('max-height', expanded.scrollHeight + 'px', 'important');
+          expanded.style.setProperty('opacity', '1', 'important');
         } else {
           this.classList.remove('mobile-expanded');
-          expanded.style.maxHeight = '0';
-          expanded.style.opacity = '0';
+          expanded.style.setProperty('max-height', '0', 'important');
+          expanded.style.setProperty('opacity', '0', 'important');
         }
       }
     });
@@ -147,14 +147,16 @@ document.addEventListener('DOMContentLoaded', function() {
       card.addEventListener('mouseenter', function() {
         const expanded = this.querySelector('.solution-expanded');
         if (expanded) {
-          expanded.style.maxHeight = expanded.scrollHeight + 'px';
+          expanded.style.setProperty('max-height', expanded.scrollHeight + 'px', 'important');
+          expanded.style.setProperty('opacity', '1', 'important');
         }
       });
 
       card.addEventListener('mouseleave', function() {
         const expanded = this.querySelector('.solution-expanded');
         if (expanded) {
-          expanded.style.maxHeight = '0';
+          expanded.style.setProperty('max-height', '0', 'important');
+          expanded.style.setProperty('opacity', '0', 'important');
         }
       });
     }
